@@ -3,30 +3,31 @@ package com.mygdx.game.minesweeper;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.utils.TimeUtils;
-
-import java.util.Random;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 
 public class MineSweeperGame extends ApplicationAdapter {
 
     private SpriteBatch batch;
     private BitmapFont font;
+    private int ScreenWidth;
+    private int ScreenHeight;
 
     @Override
     public void create() {
+        ScreenWidth = Gdx.graphics.getWidth();
+        ScreenHeight = Gdx.graphics.getHeight();
+        Gdx.app.log("INFO", "Width : " + ScreenWidth);
+        Gdx.app.log("INFO", "Height : " + ScreenHeight);
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/OperatorMono-Book.otf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 70;
+        font = generator.generateFont(parameter);
+        generator.dispose();
         font.setColor(Color.RED);
     }
 
@@ -42,7 +43,7 @@ public class MineSweeperGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        font.draw(batch, "Hello World", 200, 200);
+        font.draw(batch, "Hello World", (int)(ScreenWidth / 2), (int)(ScreenHeight / 2));
         batch.end();
     }
 
